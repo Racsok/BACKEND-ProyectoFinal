@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from rest_framework.decorators import action
 
 #import rest_framework
 from rest_framework.viewsets import ModelViewSet
@@ -14,3 +15,5 @@ class ProductsViewSet(ModelViewSet):
     serializer_class = ProductsSerializarModel
     
     permission_classes = [IsAuthenticated]
+    
+    
