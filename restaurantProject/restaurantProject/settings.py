@@ -64,8 +64,8 @@ INSTALLED_APPS = [
     'apps.users',
     #utils
     'corsheaders',
+    'drf_yasg',
     'coreapi',
-    'corsheaders',
     'rest_framework_simplejwt',
     'rest_framework'
 ]
@@ -77,6 +77,10 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),  
     'PAGE_SIZE': 10
+}
+
+SWAGGER_SETTINGS = {
+    'VALIDATOR_URL': 'http://localhost:8000',
 }
 
 MIDDLEWARE = [

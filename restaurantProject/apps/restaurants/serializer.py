@@ -19,7 +19,7 @@ class TablesRestaurantSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = "__all__"
+        fields = ["waiter", "tableRestaurant"]
         
 class BillSerializer(serializers.ModelSerializer):
     class Meta:

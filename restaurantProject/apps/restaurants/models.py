@@ -16,7 +16,7 @@ class Table(models.Model):
     personCapacity = models.IntegerField(default=1, null=False, blank=False)
     
     def __str__(self) -> str:
-        return f"Table {self.number}"
+        return f"{self.number}"
     
     
     
@@ -25,19 +25,19 @@ class TablesRestaurant(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
     
     def __str__(self) -> str:
-        return f"mesa: {self.table} res: {self.restaurant}"
+        return f"{self.table} {self.restaurant}"
     
 class Order(models.Model):
     waiter = models.ForeignKey('users.Waiter', on_delete=models.DO_NOTHING)
     tableRestaurant = models.ForeignKey(TablesRestaurant, on_delete=models.DO_NOTHING)  
     
     def __str__(self) -> str:
-        return f"mesero: {self.waiter}, mesa: {self.tableRestaurant}"
+        return f"{self.waiter} {self.tableRestaurant}"
 
 class Bill(models.Model):
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     cost = models.IntegerField(default=100)#NO SE QUE TIPO ES
-    tipPorcent = models.IntegerField(default=100)#NO SE QUE TIPO ES
+    tipPorcent = models.DecimalField(max_digits=5, decimal_places=2)
     finalCost = models.IntegerField(default=100)#NO SE QUE TIPO ES
 
 class ProductOrder(models.Model):

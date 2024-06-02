@@ -20,7 +20,7 @@ class UserSerializarModel(serializers.ModelSerializer):
 class WaiterSerializerModel(serializers.ModelSerializer):
     class Meta:
         model = Waiter
-        fields = "__all__"
+        fields = ["charge"]
         
 class WaiterShiftSerializer(serializers.Serializer):
     class Meta:

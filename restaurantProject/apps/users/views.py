@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.shortcuts import render
 
 #import rest_framework
 from rest_framework.response import Response
@@ -8,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 
 #modelos
+from apps.restaurants.models import Order
 from .models import *
 from .serializers import *
 # Create your views here.
@@ -15,19 +15,32 @@ from .serializers import *
 class WaiterViewSet(ModelViewSet):
     queryset = Waiter.objects.all()
     serializer_class = WaiterSerializerModel
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
+    
+    
+    @action(detail=True, methods=['get'])
+    def orders(self, request, pk=None):
+        waiter = self.get_object()
+        print(f"{self.request.query_params} <---------------------------------->")
+        if self.request.query_params.get('active') == '1':
+            
+            orders = Order.objects.all()
+            serializer = Order.get_serializer(orders, many=True)
+            print(orders)
+            return Response(serializer.data)
+        return Response({"hola": "hoola"})  
+    
+    
     
     @action(detail=True, methods=['post'])
     def add_shift(self, request, pk=None):
         waiter = self.get_object()
         serializer = WaiterShiftSerializer(data=request.data)
-        print(request.data)
         
         if serializer.is_valid():
             start_date_str = request.data.get('start_date')
             end_date_str = request.data.get('end_date')
             restaurant_id = request.data.get('restaurant')
-            print(start_date_str)
             start_date = datetime.strptime(start_date_str, "%Y-%m-%d %H:%M:%S")
             end_date = datetime.strptime(end_date_str, "%Y-%m-%d %H:%M:%S")
             
@@ -37,10 +50,14 @@ class WaiterViewSet(ModelViewSet):
         return Response(serializer.errors,)
     
     
-    # def filter_queryset(self, queryset):
-    #     r_user = self.request.user
-    #     queryset = queryset.filter(user = r_user)
+    def filter_queryset(self, queryset):
+        r_user = self.request.user
+        queryset = queryset.filter(user = r_user)
         
-    #     return queryset
+        return queryset
+    
+class ShiftViewSet(ModelViewSet):
+    queryset = WaiterShift.objects.all()
+    serializer_class = WaiterShiftSerializer
     
     
