@@ -4,8 +4,6 @@ from apps.restaurants.models import Bill, Order
 
 class IsManagerBill(BasePermission):
     def has_permission(self, request, view):
-        
-        user = request.user
         bill = Bill.objects.filter(id=view.kwargs.get('pk'))
         if bill.exists():
             bill = bill.first()
@@ -14,7 +12,7 @@ class IsManagerBill(BasePermission):
         else:
             return False
         
-class IsManagerOrder(BasePermission):
+class IsManagerAtOrder(BasePermission):
     def has_permission(self, request, view):
         
         user = request.user

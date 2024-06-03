@@ -35,10 +35,11 @@ class Order(models.Model):
         return f"{self.waiter} {self.tableRestaurant}"
 
 class Bill(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    cost = models.IntegerField(default=100)#NO SE QUE TIPO ES
-    tipPorcent = models.DecimalField(max_digits=5, decimal_places=2)
-    finalCost = models.IntegerField(default=100)#NO SE QUE TIPO ES
+    order = models.ForeignKey(Order, blank=True, on_delete=models.DO_NOTHING)
+    cost = models.FloatField(default=100)
+    tipPorcent = models.FloatField()
+    finalCost = models.FloatField(default=None, blank=True, null=True)
+    
 
 class ProductOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)

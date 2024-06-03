@@ -31,18 +31,15 @@ class TableViewSet(ModelViewSet):
         try:
             waiter = Waiter.objects.get(user=user)
         except Waiter.DoesNotExist:
-            return Response({"error": "El usuario no es un mesero."})
+            return Response({"error": "the user is not waiter."})
 
         current_datetime = datetime.now()
         try:
-            # Obtener el turno actual del mesero para la fecha actual
-            waiter_shift = WaiterShift.objects.get(waiter=waiter, start_date__lte=current_datetime, end_date__gte=current_datetime)
+            waiter_shift = WaiterShift.objects.filter(waiter=waiter, start_date__lte=current_datetime, end_date__gte=current_datetime)
         except WaiterShift.DoesNotExist:
-            return Response({"error": "No hay turno para este mesero en la fecha actual."})
+            return Response({"error": "dont have shitf for this waiter."})
 
-        # Filtrar las mesas por el turno actual del mesero
         tables = Table.objects.all()
-        # Serializar y devolver las mesas
         serializer = self.get_serializer(tables, many=True)
         return Response(serializer.data)
     
@@ -60,13 +57,13 @@ class TablesRestaurantViewSet(ModelViewSet):
         try:
             waiter = Waiter.objects.get(user=user)
         except Waiter.DoesNotExist:
-            return Response({"error": "El usuario no es un mesero."})
+            return Response({"error": "the user is not waiter."})
 
         current_datetime = datetime.now()
         try:
             waiter_shift = WaiterShift.objects.get(waiter=waiter, start_date__lte=current_datetime, end_date__gte=current_datetime)
         except WaiterShift.DoesNotExist:
-            return Response({"error": "No hay turno para este mesero en la fecha actual."})
+            return Response({"error": "dont have shitf for this waiter."})
 
         tables = TablesRestaurant.objects.all()
         serializer = self.get_serializer(tables, many=True)
@@ -82,7 +79,7 @@ class OrderViewSet(ModelViewSet):
     
     def get_permissions(self):
         if self.action == "destroy":
-            return super().get_permissions() + [IsManagerOrder()]
+            return super().get_permissions() + [IsManagerAtOrder()]
         return super().get_permissions()
     
     
@@ -94,7 +91,7 @@ class BillViewSet(ModelViewSet):
     
     def get_permissions(self):
         if self.action == "destroy":
-            return super().get_permissions() + [IsManagerBIll()]
+            return super().get_permissions() + [IsManagerBill()]
         return super().get_permissions()
         
     

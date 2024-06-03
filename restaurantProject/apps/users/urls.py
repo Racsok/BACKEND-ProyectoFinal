@@ -8,6 +8,7 @@ from .views import *
 router = DefaultRouter()
 router.register(r'waiters', WaiterViewSet, basename='waiters')
 router.register(r'shift', ShiftViewSet, basename='shift')
+router.register(r'users', UserViewSet, basename='users')
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

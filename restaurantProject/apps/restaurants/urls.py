@@ -3,12 +3,12 @@ from rest_framework.routers import DefaultRouter
 from .views import *
 
 router = DefaultRouter()
-router.register(r'restaurant', RestaurantViewSet, basename='restaurant')
-router.register(r'table', TableViewSet, basename='table')
+router.register(r'restaurants', RestaurantViewSet, basename='restaurants')
+router.register(r'tables', TableViewSet, basename='tables')
 router.register(r'tables_restaurant', TableViewSet, basename='tableRestaurant')
-router.register(r'order', OrderViewSet, basename='order')
-router.register(r'bill', BillViewSet, basename='bill')
-router.register(r'product_order', ProductOrderViewSet, basename='productOrder')
+router.register(r'orders', OrderViewSet, basename='orders')
+router.register(r'bills', BillViewSet, basename='bills')
+#router.register(r'product_order', ProductOrderViewSet, basename='productOrder')
 
 urlpatterns = []
 
