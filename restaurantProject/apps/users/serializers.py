@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, Waiter, WaiterShift
+from .models import User, Waiter, WaiterShift, TipWaiter
 
 #user serializable
 class UserSerializarModel(serializers.ModelSerializer):
@@ -25,5 +25,10 @@ class WaiterSerializerModel(serializers.ModelSerializer):
 class WaiterShiftSerializer(serializers.Serializer):
     class Meta:
         model = WaiterShift
+        fields = "__all__"
+        
+class TipWaiterSerializer(serializers.Serializer):
+    class Meta:
+        model: TipWaiter
         fields = "__all__"
         

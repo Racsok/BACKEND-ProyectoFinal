@@ -64,10 +64,14 @@ class WaiterViewSet(ModelViewSet):
     
     
     
-    
 class ShiftViewSet(ModelViewSet):
     queryset = WaiterShift.objects.all()
     serializer_class = WaiterShiftSerializer
+    permission_classes = [IsAuthenticated]
+    
+class TipWaiterViewSet(ModelViewSet):
+    queryset = TipWaiter.objects.all()
+    serializer_class = TipWaiterSerializer
     permission_classes = [IsAuthenticated]
     
     

@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
+#modelos
+from apps.restaurants.models import Bill
 
 # Create your models here.
 #Mesero
@@ -20,3 +21,7 @@ class WaiterShift(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     
+class TipWaiter(models.Model):
+    bill = models.ForeignKey(Bill, on_delete=models.DO_NOTHING)
+    waiter = models.OneToOneField(Waiter, on_delete=models.DO_NOTHING)
+    paid = models.BooleanField(default=False, blank=True, null=False)
