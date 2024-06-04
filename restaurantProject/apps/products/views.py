@@ -16,7 +16,7 @@ class ProductsViewSet(ModelViewSet):
     
     permission_classes = [IsAuthenticated]
     
-class ProdusctsRestaurant(ModelViewSet):
+class ProdusctsRestaurantViewSet(ModelViewSet):
     queryset = ProductsRestaurant.objects.all()
     serializer_class = ProductsRestaurantASerializer
     permission_classes = [IsAuthenticated]
