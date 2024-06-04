@@ -1,7 +1,6 @@
 from django.db import models
 
 #modelos
-from apps.products.models import Products
 # Create your models here.
 
 class Restaurant(models.Model):
@@ -43,5 +42,5 @@ class Bill(models.Model):
 
 class ProductOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
-    product = models.ForeignKey(Products, on_delete=models.DO_NOTHING)
+    product = models.ForeignKey('products.Products', on_delete=models.DO_NOTHING)
      
